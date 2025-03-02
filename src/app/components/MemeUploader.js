@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from 'next/image';
 
 const MemeUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -41,7 +42,7 @@ const MemeUploader = () => {
       {preview && (
         <div className="mb-4">
           <p className="text-sm">Preview:</p>
-          <img src={preview} alt="Preview" className="w-full h-auto rounded-md" />
+          <Image src={preview} alt="Preview" className="w-full h-auto rounded-md" />
         </div>
       )}
       <button

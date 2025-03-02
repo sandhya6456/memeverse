@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
+import Image from 'next/image';
 
 const MemeCard = ({ meme }) => {
   const [likes, setLikes] = useState(meme.likes || 0);
 
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg shadow-lg">
-      <img src={meme.image} alt="Meme" className="rounded-lg w-full" />
+      <Image src={meme.image} alt="Meme" className="rounded-lg w-full" />
       <h2 className="text-lg font-bold mt-2">{meme.title}</h2>
       <button
         onClick={() => setLikes(likes + 1)}
