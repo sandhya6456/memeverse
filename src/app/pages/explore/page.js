@@ -14,7 +14,7 @@ export default function Explore() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Trending");
   const [sortBy, setSortBy] = useState("Likes");
-  const [page, setPage] = useState(1);
+  
   const [loading, setLoading] = useState(false);
   const observer = useRef();
 
