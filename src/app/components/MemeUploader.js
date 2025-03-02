@@ -8,7 +8,6 @@ const MemeUploader = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedMemes, setUploadedMemes] = useState([]);
 
-  // Load uploaded memes from Local Storage on mount
   useEffect(() => {
     const storedMemes = JSON.parse(localStorage.getItem("uploadedMemes")) || [];
     setUploadedMemes(storedMemes);
@@ -37,7 +36,7 @@ const MemeUploader = () => {
         `https://api.imgbb.com/1/upload?key=d6228a894a7f6fcb72351f5576d0f1d4`,
         { method: "POST", body: formData }
       );
-      
+
       const data = await res.json();
       if (data.success) {
         const newMeme = data.data.url;
@@ -49,6 +48,7 @@ const MemeUploader = () => {
         alert("Upload failed!");
       }
     } catch (error) {
+      console.error("Upload error:", error);
       alert("An error occurred while uploading.");
     }
 
@@ -61,7 +61,7 @@ const MemeUploader = () => {
     <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4">Upload a Meme</h2>
       <input type="file" accept="image/*" onChange={handleFileChange} className="mb-4" />
-      
+
       {preview && (
         <div className="mb-4">
           <p className="text-sm">Preview:</p>
@@ -76,7 +76,7 @@ const MemeUploader = () => {
       >
         {isUploading ? "Uploading..." : "Upload"}
       </button>
-      
+
       {uploadedMemes.length > 0 && (
         <div className="mt-6">
           <h3 className="text-lg font-bold mb-2">Uploaded Memes:</h3>
