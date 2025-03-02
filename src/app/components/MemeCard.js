@@ -1,22 +1,16 @@
-"use client";
-import { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
-const MemeCard = ({ meme }) => {
-  const [likes, setLikes] = useState(meme.likes || 0);
-
+export default function MemeCard({ meme }) {
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg shadow-lg">
-      <Image src={meme.image} alt="Meme" className="rounded-lg w-full" />
-      <h2 className="text-lg font-bold mt-2">{meme.title}</h2>
-      <button
-        onClick={() => setLikes(likes + 1)}
-        className="mt-2 bg-blue-600 px-4 py-2 rounded"
-      >
-        👍 {likes} Likes
-      </button>
+      <Image 
+        src={meme.url} // ✅ Use `meme.url` instead of `meme.image`
+        alt={meme.name}
+        width={300} // Add width and height to fix errors
+        height={300}
+        className="rounded-lg w-full"
+      />
+      <h2 className="text-lg font-bold mt-2">{meme.name}</h2>
     </div>
   );
-};
-
-export default MemeCard;
+}
