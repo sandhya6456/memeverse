@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import Image from 'next/image';
 
 export default function Leaderboard() {
   const [likedMemes, setLikedMemes] = useState([]);
@@ -26,7 +27,7 @@ export default function Leaderboard() {
           <ul>
             {likedMemes.map((meme, index) => (
               <li key={index} className="mt-2">
-                {index + 1}. <img src={meme} className="w-40 rounded-lg" />
+                {index + 1}. <Image src={meme} className="w-40 rounded-lg" />
               </li>
             ))}
           </ul>

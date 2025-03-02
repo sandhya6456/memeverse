@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import Image from 'next/image';
 
 import { useEffect, useState } from "react";
 
@@ -27,14 +28,14 @@ export default function Profile() {
         <h2 className="text-xl mt-4">Uploaded Memes</h2>
         <div className="grid grid-cols-2 gap-4">
           {uploadedMemes.map((meme, index) => (
-            <img key={index} src={meme} alt="Uploaded Meme" className="rounded-lg" />
+            <Image key={index} src={meme} alt="Uploaded Meme" className="rounded-lg" />
           ))}
         </div>
 
         <h2 className="text-xl mt-4">Liked Memes</h2>
         <div className="grid grid-cols-2 gap-4">
           {likedMemes.map((meme, index) => (
-            <img key={index} src={meme} alt="Liked Meme" className="rounded-lg" />
+            <Image key={index} src={meme} alt="Liked Meme" className="rounded-lg" />
           ))}
         </div>
       </div>

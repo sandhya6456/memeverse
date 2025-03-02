@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import MemeCard from "../../components/MemeCard";
-// import SearchBar from "../components/SearchBar";
+import SearchBar from "@/app/components/SearchBar";
 import Navbar from "../../components/Navbar";
 import Footer from "@/app/components/Footer";
 
@@ -26,7 +26,7 @@ export default function Explore() {
   return (
     <div className="bg-black text-white min-h-screen">
       <Navbar />
-      {/* <SearchBar setSearch={setSearch} /> */}
+      <SearchBar setSearch={setSearch} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
         {filteredMemes.map((meme) => (
           <MemeCard key={meme.id} meme={meme} />
