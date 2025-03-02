@@ -86,7 +86,9 @@ export default function Explore() {
       if (sortBy === "Likes") return b.likes - a.likes;
       if (sortBy === "Date") return (new Date(b.date || 0)) - (new Date(a.date || 0));
       if (sortBy === "Comments") return (b.comments || 0) - (a.comments || 0);
+      return 0; // Default case to avoid the error
     });
+    
 
     setFilteredMemes(filtered);
   }, [search, sortBy, category, memes]);
