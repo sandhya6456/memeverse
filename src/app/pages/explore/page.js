@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import MemeCard from "../../components/MemeCard";
 import SearchBar from "@/app/components/SearchBar";
 import Navbar from "../../components/Navbar";
-import Footer from "@/app/components/Footer";
+import Footer from "../../components/Footer";
 
 const categories = ["Trending", "New", "Classic", "Random"];
 const sortOptions = ["Likes", "Date", "Comments"];
@@ -14,7 +14,6 @@ export default function Explore() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Trending");
   const [sortBy, setSortBy] = useState("Likes");
-  
   const [loading, setLoading] = useState(false);
   const observer = useRef();
 
@@ -23,12 +22,13 @@ export default function Explore() {
     fetch("https://api.imgflip.com/get_memes")
       .then((res) => res.json())
       .then((data) => {
-        const memesWithLikes = data.data.memes.map((meme) => ({
+        const memesWithLikesAndDislikes = data.data.memes.map((meme) => ({
           ...meme,
           likes: getLikesFromStorage(meme.id),
+          dislikes: getDislikesFromStorage(meme.id),
         }));
-        setMemes(memesWithLikes);
-        setFilteredMemes(memesWithLikes);
+        setMemes(memesWithLikesAndDislikes);
+        setFilteredMemes(memesWithLikesAndDislikes);
         setLoading(false);
       });
   }, []);
@@ -37,13 +37,26 @@ export default function Explore() {
     return parseInt(localStorage.getItem(`likes_${memeId}`)) || 0;
   }
 
+  function getDislikesFromStorage(memeId) {
+    return parseInt(localStorage.getItem(`dislikes_${memeId}`)) || 0;
+  }
+
   function handleLike(memeId) {
     const newMemes = memes.map((meme) =>
       meme.id === memeId ? { ...meme, likes: meme.likes + 1 } : meme
     );
     setMemes(newMemes);
     setFilteredMemes(newMemes);
-    localStorage.setItem(`likes_${memeId}`, newMemes.find(m => m.id === memeId).likes);
+    localStorage.setItem(`likes_${memeId}`, newMemes.find((m) => m.id === memeId).likes);
+  }
+
+  function handleDislike(memeId) {
+    const newMemes = memes.map((meme) =>
+      meme.id === memeId ? { ...meme, dislikes: meme.dislikes + 1 } : meme
+    );
+    setMemes(newMemes);
+    setFilteredMemes(newMemes);
+    localStorage.setItem(`dislikes_${memeId}`, newMemes.find((m) => m.id === memeId).dislikes);
   }
 
   useEffect(() => {
@@ -63,11 +76,11 @@ export default function Explore() {
 
     filtered = [...filtered].sort((a, b) => {
       if (sortBy === "Likes") return b.likes - a.likes;
-      if (sortBy === "Date") return (new Date(b.date || 0)) - (new Date(a.date || 0));
+      if (sortBy === "Date") return new Date(b.date || 0) - new Date(a.date || 0);
       if (sortBy === "Comments") return (b.comments || 0) - (a.comments || 0);
       return 0;
     });
-    
+
     setFilteredMemes(filtered);
   }, [search, sortBy, category, memes]);
 
@@ -118,7 +131,7 @@ export default function Explore() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
         {filteredMemes.map((meme) => (
-          <MemeCard key={meme.id} meme={meme} onLike={handleLike} />
+          <MemeCard key={meme.id} meme={meme} onLike={handleLike} onDislike={handleDislike} />
         ))}
       </div>
 

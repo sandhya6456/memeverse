@@ -11,8 +11,8 @@ const Navbar = () => {
             <h1 className="text-2xl font-bold">MemeVerse</h1>
 
             {/* Mobile Menu Button */}
-            <button 
-                className="md:hidden block focus:outline-none" 
+            <button
+                className="md:hidden block focus:outline-none"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -24,6 +24,7 @@ const Navbar = () => {
                 <Link href="/pages/explore" className="hover:text-gray-300">Explore</Link>
                 <Link href="/pages/uploadmeme" className="hover:text-gray-300">Upload</Link>
                 <Link href="/pages/leaderb" className="hover:text-gray-300">Leaderboard</Link>
+                <Link href="/pages/profile" className="hover:text-gray-300">Profile</Link>
             </div>
 
             {/* Mobile Menu (Dropdown) */}
